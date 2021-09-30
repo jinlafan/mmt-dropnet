@@ -73,5 +73,4 @@ and our [paper](https://aclanthology.org/2020.wat-1.7/) :
     pages = "80--91",
     abstract = "We introduce our TMU system submitted to the Japanese{\textless}-{\textgreater}English Multimodal Task (constrained) for WAT 2020 (Nakazawa et al., 2020). This task aims to improve translation performance with the help of another modality (images) associated with the input sentences. In a multimodal translation task, the dataset is, by its nature, a low-resource one. Our method used herein augments the data by generating noisy translations and adding noise to existing training images. Subsequently, we pretrain a translation model on the augmented noisy data, and then fine-tune it on the clean data. We also examine the probabilistic dropping of either the textual or visual context vector in the decoder. This aims to regularize the network to make use of both features while training. The experimental results indicate that translation performance can be improved using our method of textual data augmentation with noising on the target side and probabilistic dropping of either context vector.",
 }
-
 ```
