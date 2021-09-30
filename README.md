@@ -1,25 +1,53 @@
-![nmtpytorch](https://github.com/lium-lst/nmtpytorch/blob/master/docs/logo.png?raw=true "nmtpytorch")
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+ MathJax.Hub.Config({
+ tex2jax: {
+ inlineMath: [['$', '$'] ],
+ displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+ }
+ });
+</script>
+# mmt-dropnet
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
+Code for WAT 2020 paper : "TMU Japanese-English Multimodal Machine Translation System for WAT 2020" \[[paper](https://aclanthology.org/2020.wat-1.7/)\] \[[presentation](https://www.youtube.com/watch?v=pljsLkRMWDQ)\].
 
-Click [here](https://join.slack.com/t/nmtpy/shared_invite/enQtNDQ5NTY2ODU1MzI5LTBkMzZjNjYyZDZiYjk0NjNmYzRmMzY2MWVjZWYyMDRhNTFiOTljY2UyYWVjODUyZWQ1YWExMWEzZmU2MmFkZmY) to join to our Slack channel for questions.
+This code is based on [nmtpytorch](https://github.com/lium-lst/nmtpytorch/tree/v4.0.0) (v4.0.0), so you follow this for an instllation and a fundamental usage.
 
-`nmtpytorch` allows training of various end-to-end neural architectures including
-but not limited to neural machine translation, image captioning and automatic
-speech recognition systems. The initial codebase was in `Theano` and was
-inspired from the famous [dl4mt-tutorial](https://github.com/nyu-dl/dl4mt-tutorial)
-codebase.
+## Dropnet method
+![dropnet_fig](docs/dropnet_fig.png?raw=true)
 
-`nmtpytorch` is mainly developed by the **Language and Speech Team** of **Le Mans University** but
-receives valuable contributions from the [Grounded Sequence-to-sequence Transduction Team](https://github.com/srvk/jsalt-2018-grounded-s2s)
-of *Frederick Jelinek Memorial Summer Workshop 2018*:
+Inspired by [Zhu et al.(2020)](https://openreview.net/forum?id=Hyl7ygStwB), we drop either the textual or the visual context vector in the decoder while training.
+This aims to regularize the network
+to make use of both features effectively.
 
-Loic Barrault, Ozan Caglayan, Amanda Duarte, Desmond Elliott, Spandana Gella, Nils Holzenberger,
-Chirag Lala, Jasmine (Sun Jae) Lee, Jindřich Libovický, Pranava Madhyastha,
-Florian Metze, Karl Mulligan, Alissa Ostapenko, Shruti Palaskar, Ramon Sanabria, Lucia Specia and Josiah Wang.
+Specifically, at each decoding step :
 
-If you use **nmtpytorch**, you may want to cite the following [paper](https://ufal.mff.cuni.cz/pbml/109/art-caglayan-et-al.pdf):
+- with probability $ p_{\textrm{net}}/2 $ : Either the textual or the visual context vector is selected to compute the multimodal context vector.
+- with probability $ (1-p_{\textrm{net}}) $ : Both context vectors are used for computing the multimodal context vector.
+
+where dropnet rate $ p_{\textrm{net}} \in [0, 1] $.
+
+For more details, see our paper.
+
+#### WAT 2020 MMT-en-ja task results
+![dropnet_scores](docs/dropnet_scores.png)
+
+## Usage of dropnet method
+If you use dropnet method, you should modify a configuration file like [this](docs/examples/v4.0.0/mmt-task-en-fr-multimodalatt-dropnet.conf).
+
+In our paper, we set dropnet rate to 0.3, that is 0.15 for *dropnet_image_rate*, 0.15 for *dropnet_text_rate*.
+
+You can control the dropnet rate flexibly, in other words, you can set different probabilities to pick up context vectors for visual and textual.
+
+## Installation & Usage
+Please refer to [nmtpytorch](https://github.com/lium-lst/nmtpytorch/tree/v4.0.0).
+## Requirment
+- Python 3.6.10
+- torch 1.0.0
+
+## Citation
+If you use this code, please cite **nmtpytorch**'s [paper](https://ufal.mff.cuni.cz/pbml/109/art-caglayan-et-al.pdf) :
 ```
 @article{nmtpy2017,
   author    = {Ozan Caglayan and
@@ -38,50 +66,22 @@ If you use **nmtpytorch**, you may want to cite the following [paper](https://uf
   timestamp = {Tue, 12 Sep 2017 10:01:08 +0100}
 }
 ```
-
-## Installation
-
-`nmtpytorch` currently requires `python>=3.6` and `torch>=0.4.1`.
-We are not planning to support Python 2.x.
-
-**IMPORTANT:** After installing `nmtpytorch`, you **need** to run `nmtpy-install-extra`
-to download METEOR related files into your `${HOME}/.nmtpy` folder.
-This step is only required once.
-
-### pip
-
-You can install `nmtpytorch` from `PyPI` using `pip` (or `pip3` depending on your
-operating system and environment):
+and our [paper](https://aclanthology.org/2020.wat-1.7/) :
+```
+@inproceedings{tamura-etal-2020-tmu,
+    title = "{TMU} {J}apanese-{E}nglish Multimodal Machine Translation System for {WAT} 2020",
+    author = "Tamura, Hiroto  and
+      Hirasawa, Tosho  and
+      Kaneko, Masahiro  and
+      Komachi, Mamoru",
+    booktitle = "Proceedings of the 7th Workshop on Asian Translation",
+    month = dec,
+    year = "2020",
+    address = "Suzhou, China",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2020.wat-1.7",
+    pages = "80--91",
+    abstract = "We introduce our TMU system submitted to the Japanese{\textless}-{\textgreater}English Multimodal Task (constrained) for WAT 2020 (Nakazawa et al., 2020). This task aims to improve translation performance with the help of another modality (images) associated with the input sentences. In a multimodal translation task, the dataset is, by its nature, a low-resource one. Our method used herein augments the data by generating noisy translations and adding noise to existing training images. Subsequently, we pretrain a translation model on the augmented noisy data, and then fine-tune it on the clean data. We also examine the probabilistic dropping of either the textual or visual context vector in the decoder. This aims to regularize the network to make use of both features while training. The experimental results indicate that translation performance can be improved using our method of textual data augmentation with noising on the target side and probabilistic dropping of either context vector.",
+}
 
 ```
-$ pip install nmtpytorch
-```
-
-This will automatically fetch and install the dependencies as well. For the `torch`
-dependency it will specifically install the `torch 1.0.0` package from `PyPI` that
-ships `CUDA 9.0` within.
-
-### conda
-
-We provide an `environment.yml` file in the repository that you can use to create
-a ready-to-use anaconda environment for `nmtpytorch`:
-
-```
-$ conda update --all
-$ git clone https://github.com/lium-lst/nmtpytorch.git
-$ conda env create -f nmtpytorch/environment.yml
-```
-
-### Development Mode
-
-For continuous development and testing, it is sufficient to run `python setup.py develop`
-in the root folder of your GIT checkout. From now on, all modifications to the source
-tree are directly taken into account without requiring reinstallation.
-
-## Documentation
-
-We currently only provide some preliminary documentation in our [wiki](https://github.com/lium-lst/nmtpytorch/wiki).
-
-## Release Notes
-
-See [NEWS.md](NEWS.md).
