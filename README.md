@@ -1,13 +1,3 @@
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script type="text/x-mathjax-config">
- MathJax.Hub.Config({
- tex2jax: {
- inlineMath: [['$', '$'] ],
- displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
- }
- });
-</script>
 # mmt-dropnet
 
 Code for WAT 2020 paper : "TMU Japanese-English Multimodal Machine Translation System for WAT 2020" \[[paper](https://aclanthology.org/2020.wat-1.7/)\] \[[presentation](https://www.youtube.com/watch?v=pljsLkRMWDQ)\].
@@ -23,8 +13,8 @@ to make use of both features effectively.
 
 Specifically, at each decoding step :
 
-- with probability $ p_{\textrm{net}}/2 $ : Either the textual or the visual context vector is selected to compute the multimodal context vector.
-- with probability $ (1-p_{\textrm{net}}) $ : Both context vectors are used for computing the multimodal context vector.
+- with probability p_{net}/2 : Either the textual or the visual context vector is selected to compute the multimodal context vector.
+- with probability (1-p_{net}) : Both context vectors are used for computing the multimodal context vector.
 
 where dropnet rate $ p_{\textrm{net}} \in [0, 1] $.
 
