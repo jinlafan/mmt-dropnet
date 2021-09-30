@@ -24,7 +24,7 @@ For more details, see our paper.
 ![dropnet_scores](docs/dropnet_scores.png)
 
 ## Usage of dropnet method
-If you use dropnet method, you should modify a configuration file like [this](docs/examples/v4.0.0/mmt-task-en-fr-multimodalatt-dropnet.conf).
+If you use dropnet method, you should modify a configuration file like [this](examples/v4.0.0/mmt-task-en-fr-multimodalatt-dropnet.conf).
 
 In our paper, we set dropnet rate to 0.3, that is 0.15 for *dropnet_image_rate*, 0.15 for *dropnet_text_rate*.
 
