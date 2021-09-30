@@ -16,7 +16,7 @@ Specifically, at each decoding step :
 - with probability p_{net}/2 : Either the textual or the visual context vector is selected to compute the multimodal context vector.
 - with probability (1-p_{net}) : Both context vectors are used for computing the multimodal context vector.
 
-where dropnet rate $ p_{\textrm{net}} \in [0, 1] $.
+where dropnet rate p_{net} ∈ [0, 1].
 
 For more details, see our paper.
 
