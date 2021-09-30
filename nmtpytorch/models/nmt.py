@@ -58,6 +58,10 @@ class NMT(nn.Module):
             'bos_type': 'emb',          # 'emb': default learned emb
             'bos_activ': None,          #
             'bos_dim': None,            #
+
+            'dropnet': False,           # Dropnet flag
+            'dropnet_image_rate': 0.15, # Rate for picking up the visual context
+            'dropnet_text_rate': 0.15,  # Rate for picking up the textual context
         }
 
     def __init__(self, opts):

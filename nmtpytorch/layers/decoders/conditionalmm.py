@@ -9,7 +9,8 @@ from . import ConditionalDecoder
 
 class ConditionalMMDecoder(ConditionalDecoder):
     """A conditional multimodal decoder with multimodal attention."""
-    def __init__(self, fusion_type='concat', aux_ctx_name='image', **kwargs):
+    def __init__(self, fusion_type='concat', aux_ctx_name='image', dropnet=False, \
+    dropnet_image_rate=0.15, dropnet_text_rate=0.15, **kwargs):
         super().__init__(**kwargs)
         self.aux_ctx_name = aux_ctx_name
 
@@ -18,7 +19,8 @@ class ConditionalMMDecoder(ConditionalDecoder):
         if fusion_type == "hierarchical":
             self.fusion = HierarchicalAttention(
                 [self.hidden_size, self.hidden_size],
-                self.hidden_size, self.hidden_size)
+                self.hidden_size, self.hidden_size, dropnet=dropnet, \
+                dropnet_image_rate=dropnet_image_rate, dropnet_text_rate=dropnet_text_rate)
         else:
             self.fusion = Fusion(
                 fusion_type, 2 * self.hidden_size, self.hidden_size)
