@@ -1,6 +1,6 @@
 # mmt-dropnet
 
-Code for WAT 2020 paper : "TMU Japanese-English Multimodal Machine Translation System for WAT 2020" \[[paper](https://aclanthology.org/2020.wat-1.7/)\] \[[presentation](https://www.youtube.com/watch?v=pljsLkRMWDQ)\].
+Code for WAT 2020 paper : "TMU Japanese-English Multimodal Machine Translation System for WAT 2020" \[[paper](https://aclanthology.org/2020.wat-1.7/)\] \[[slide](https://speakerdeck.com/jinlafan/tmu-japanese-english-multimodal-machine-translation-system-for-wat-2020)\] \[[presentation](https://www.youtube.com/watch?v=pljsLkRMWDQ)\].
 
 This code is based on [nmtpytorch](https://github.com/lium-lst/nmtpytorch/tree/v4.0.0) (v4.0.0), so you follow this for an instllation and a fundamental usage.
 
